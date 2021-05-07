@@ -2,7 +2,7 @@ function FetchedList({ names }) {
   return (
     <>
       {names.map((name) => (
-        <div>{name}</div>
+        <div key={name}>{name}</div>
       ))}
     </>
   );

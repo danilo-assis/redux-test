@@ -14,12 +14,12 @@ const reducer = (state = initialState, action) => {
     case types.SET_NAMES:
       return {
         ...state,
-        names: action.names
+        names: action.names,
       };
     case types.ADD_NAME:
       return {
         ...state,
-        names: [...state.names, action.name]
+        names: [...state.names, action.name],
       };
     default:
       return state;
@@ -36,12 +36,23 @@ export const addName = (name) => ({
   name,
 });
 
-export const storeNames = (names) => (dispatch) => {
-  dispatch(setNames(names));
-}
+export const fetchNames = () => (dispatch) => {
+  fetch(ENDPOINT)
+    .then((response) => response.json())
+    .then((data) => {
+      dispatch(
+        setNames(
+          data.pokemon.map((currentPokemon) => currentPokemon.pokemon.name)
+        )
+      );
+    })
+    .catch(() => {
+      console.log("Error on fetch");
+    });
+};
 
 export const insertName = (name) => (dispatch) => {
   dispatch(addName(name));
-}
+};
 
 export default reducer;
