@@ -1,4 +1,9 @@
-function FetchedList({ names }) {
+import { useSelector } from "react-redux";
+
+function FetchedList() {
+  const storeDataList = useSelector((state) => state.dataList);
+  const names = storeDataList.names;
+
   return (
     <>
       {names.map((name) => (
