@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
+import FetchButton from "./components/FetchButton/FetchButton";
 import FetchedList from "./components/FetchedList/FetchedList";
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
 
   const [names, setNames] = useState([]);
 
-  useEffect(() => {
+  const handleFetchClick = () => {
     fetch(ENDPOINT)
       .then((response) => response.json())
       .then((data) => {
@@ -18,9 +19,14 @@ function App() {
       .catch(() => {
         console.log("Error on fetch");
       });
-  }, []);
+  };
 
-  return <FetchedList names={names} />;
+  return (
+    <>
+      <FetchButton handleClick={handleFetchClick} />
+      <FetchedList names={names} />
+    </>
+  );
 }
 
 export default App;
